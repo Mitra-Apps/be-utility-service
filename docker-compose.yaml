@@ -1,0 +1,43 @@
+version: "3.0"
+services:
+  app:
+    build: .
+    ports:
+      - "9200:9200"
+    environment:
+      - APP_PORT=:9200
+      - DB_HOST=database
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=123456
+      - DB_NAME=utility-service
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - utility-net
+  database:
+    image: postgres:9.6
+    restart: always
+    volumes:
+      - ./ignoredmodule/postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=utility-service
+    ports:
+      - 5435:5432
+    expose:
+      - 5435
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - utility-net
+volumes:
+  db:
+    driver: local
+networks:
+  utility-net:
+    driver: bridge

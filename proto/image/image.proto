@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "github.com/Mitra-Apps/be-utility-service/domain/proto/image;image";
+
+import "google/api/annotations.proto";
+
+message Image {
+    string id = 1;
+    string image_path = 2;
+}
+
+message GetImagesRequest {}
+
+message GetImagesResponse {
+    repeated Image images = 1;
+}
+
+service ImageService {
+    rpc GetImages(GetImagesRequest) returns (GetImagesResponse) {
+        option (google.api.http) = {
+            get: "/images"
+        };
+    }
+}
