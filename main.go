@@ -8,11 +8,11 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/Mitra-Apps/be-user-service/config/postgre"
-	pb "github.com/Mitra-Apps/be-user-service/domain/proto/user"
-	userPostgreRepo "github.com/Mitra-Apps/be-user-service/domain/user/repository/postgre"
-	grpcRoute "github.com/Mitra-Apps/be-user-service/handler/grpc"
-	"github.com/Mitra-Apps/be-user-service/service"
+	"github.com/Mitra-Apps/be-utility-service/config/postgre"
+	pb "github.com/Mitra-Apps/be-utility-service/domain/proto/image"
+	imagePostgreRepo "github.com/Mitra-Apps/be-utility-service/domain/image/repository/postgre"
+	grpcRoute "github.com/Mitra-Apps/be-utility-service/handler/grpc"
+	"github.com/Mitra-Apps/be-utility-service/service"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/joho/godotenv"
 	"github.com/sirupsen/logrus"
@@ -38,11 +38,11 @@ func main() {
 	}
 
 	db := postgre.Connection()
-	usrRepo := userPostgreRepo.NewPostgre(db)
+	usrRepo := imagePostgreRepo.NewPostgre(db)
 	svc := service.New(usrRepo)
 	grpcServer := GrpcNewServer(ctx, []grpc.ServerOption{})
 	route := grpcRoute.New(svc)
-	pb.RegisterUserServiceServer(grpcServer, route)
+	pb.RegisterImageServiceServer(grpcServer, route)
 
 	go func() {
 		<-ctx.Done()
@@ -85,7 +85,7 @@ func GrpcNewServer(ctx context.Context, opts []grpc.ServerOption) *grpc.Server {
 func HttpNewServer(ctx context.Context, grpcPort, httpPort string) error {
 	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
-	if err := pb.RegisterUserServiceHandlerFromEndpoint(ctx, mux, fmt.Sprintf("localhost:%s", grpcPort), opts); err != nil {
+	if err := pb.RegisterImageServiceHandlerFromEndpoint(ctx, mux, fmt.Sprintf("localhost:%s", grpcPort), opts); err != nil {
 		return err
 	}
 
