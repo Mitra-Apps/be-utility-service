@@ -4,7 +4,6 @@ go 1.21.3
 
 require (
 	connectrpc.com/connect v1.12.0
-	github.com/Mitra-Apps/be-user-service v0.0.0-20231214042708-faaef975c525
 	github.com/google/uuid v1.4.0
 	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.1
@@ -41,10 +40,12 @@ require (
 	golang.org/x/lint v0.0.0-20201208152925-83fdc39ff7b5 // indirect
 	golang.org/x/mod v0.8.0 // indirect
 	golang.org/x/net v0.18.0 // indirect
+	golang.org/x/sync v0.5.0 // indirect
 	golang.org/x/sys v0.14.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 	golang.org/x/tools v0.6.0 // indirect
 	google.golang.org/genproto v0.0.0-20231106174013-bbf56f31fb17 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20231106174013-bbf56f31fb17 // indirect
+	google.golang.org/grpc/examples v0.0.0-20231208223803-52baf161f30f // indirect
 	howett.net/plist v0.0.0-20181124034731-591f970eefbb // indirect
 )
