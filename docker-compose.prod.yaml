@@ -1,6 +1,6 @@
 version: "3.0"
 services:
-  app:
+  prod-utility-service:
     image: ${ECR_REGISTRY}/${IMAGE_NAME}:${COMMIT_HASH}
     ports:
       - 9300:9300
