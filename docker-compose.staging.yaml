@@ -1,0 +1,19 @@
+version: "3.0"
+services:
+  app:
+    image: ${ECR_REGISTRY}/${IMAGE_NAME}:${COMMIT_HASH}
+    ports:
+      - 7300:7300
+      - 7301:7301
+    environment:
+      - GRPC_PORT=7300
+      - HTTP_PORT=7301
+      - DB_HOST=staging-postgre
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=123456
+      - DB_NAME=utility-service
+    networks:
+      - grpc_network
+networks:
+  grpc_network:
+    external: true
