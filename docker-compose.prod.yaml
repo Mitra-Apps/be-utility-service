@@ -1,7 +1,7 @@
 version: "3.0"
 services:
   prod-utility-service:
-    image: ${ECR_REGISTRY}/${IMAGE_NAME}:${COMMIT_HASH}
+    image: ${ECR_REGISTRY}/${IMAGE_NAME}:${TAG}
     ports:
       - 9300:9300
       - 9301:9301
